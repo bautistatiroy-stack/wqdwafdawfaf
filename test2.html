@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form with JPG Upload</title>
+    <style>
+        /* Reset */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Body */
+        /* BODY */
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+            /* Background for all devices */
+            background-image: url('clientlogo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        /* CONTAINER */
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background: dra;
+            border-radius: 12px;
+            color: white;
+        }
+        /* INPUTS */
+        
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        /* PREVIEW IMAGE */
+        
+        #preview {
+            width: 100%;
+            max-width: 180px;
+            display: block;
+            margin: 15px auto;
+            border-radius: 10px;
+        }
+        /* TABLET */
+        
+        @media screen and (max-width: 768px) {
+            body {
+                background-size: cover;
+                background-position: center;
+            }
+            .container {
+                max-width: 90%;
+                padding: 18px;
+            }
+        }
+        /* PHONE */
+        
+        @media screen and (max-width: 480px) {
+            body {
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll;
+            }
+            .container {
+                max-width: 100%;
+                padding: 15px;
+            }
+            input,
+            textarea,
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            #preview {
+                max-width: 140px;
+            }
+        }
+        /* LAPTOP / LARGE SCREEN */
+        
+        @media screen and (min-width: px) {
+            .container {
+                max-width: 10px;
+            }
+        }
+        /* Main Container */
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            border-radius: 12px;
+            color: #191313e3;
+        }
+        /* Inputs & Button */
+        
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+        /* Input Style */
+        
+        input,
+        textarea {
+            background: rgba(1, 0, 0, 0.5);
+            color: #fbf6f6;
+        }
+        /* Button */
+        
+        button {
+            background: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        /* Preview Image */
+        
+        #preview {
+            width: 100%;
+            max-width: 180px;
+            display: block;
+            margin: 15px auto;
+            border-radius: 10px;
+        }
+        /* Response Message */
+        
+        #responseMsg {
+            margin-top: 10px;
+            text-align: center;
+            color: #1aff00;
+            font-weight: bold;
+        }
+        /* Tablets */
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 90%;
+                padding: 18px;
+            }
+        }
+        /* Phones */
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                padding: 15px;
+            }
+            input,
+            textarea,
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            #preview {
+                max-width: 140px;
+            }
+        }
+        /* Large Screens */
+        
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <div class="container">
+            <h2>📞 Contact Form</h2>
+            <form id="myForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="number">Phone Number:</label>
+                <input type="tel" id="number" name="number" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required></textarea>
+
+                <label for="problem">Problem Description:</label>
+                <textarea id="problem" name="problem" required></textarea>
+
+                <br><br>
+                <button type="submit" id="submitBtn">🚀 Submit Form</button>
+            </form>
+            <p id="responseMsg"></p>
+        </div>
+
+        <script>
+            const scriptURL = "https://script.google.com/macros/s/AKfycbz56NUsIqL6IHKKdviL19JSM-qEAjWhsLF7Rduonnw9f7NuUejiP1BiQY4mXdxD55aa0w/exec";
+            const form = document.getElementById("myForm");
+            const responseMsg = document.getElementById("responseMsg");
+            const submitBtn = document.getElementById("submitBtn");
+
+            // ✅ Form submission (NO PICTURE UPLOAD)
+            form.addEventListener("submit", async(e) => {
+                e.preventDefault();
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = '⏳ Submitting...';
+                showMessage('Submitting form...', 'loading');
+
+                try {
+                    const formData = new FormData(form);
+
+                    const response = await fetch(scriptURL, {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    const result = await response.text();
+
+                    if (response.ok) {
+                        showMessage("✅ Submitted Successfully! We'll contact you soon.", 'success');
+                        form.reset();
+                    } else {
+                        throw new Error('Server error: ' + result);
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage("❌ Error submitting form. Please try again.", 'error');
+                } finally {
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '🚀 Submit Form';
+                }
+            });
+
+            // ✅ Message display
+            function showMessage(message, type) {
+                responseMsg.textContent = message;
+                responseMsg.className = type;
+                responseMsg.style.display = 'block';
+
+                // Auto-hide success messages
+                if (type === 'success') {
+                    setTimeout(() => {
+                        responseMsg.style.display = 'none';
+                    }, 5000);
+                }
+            }
+
+            // Form validation on input
+            form.addEventListener('input', function() {
+                const isValid = form.checkValidity();
+                submitBtn.disabled = !isValid;
+            });
+
+            function doPost(e) {
+                try {
+                    const sheet = SpreadsheetApp.getActiveSheet();
+                    const data = e.parameter;
+
+                    sheet.appendRow([
+                        new Date(),
+                        data.name,
+                        data.number,
+                        data.address,
+                        data.problem
+                    ]);
+
+                    return ContentService
+                        .createTextOutput('SUCCESS')
+                        .setMimeType(ContentService.MimeType.TEXT);
+
+                } catch (error) {
+                    return ContentService
+                        .createTextOutput('ERROR: ' + error.toString())
+                        .setMimeType(ContentService.MimeType.TEXT);
+                }
+            }
+        </script>
+    </body>
+
+</html>
