@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 300px center;
+            font-family: Arial, sans-serif;
+            /* Background for all devices */
+            background-image: url('clientlogo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        /* LOGIN CARD */
+        
+        .login-box {
+            width: 360px;
+            padding: 20px;
+            border-radius: 18px;
+            background-color: rgb(53, 219, 27);
+            background: rgba(13, 10, 10, 0.5);
+            box-shadow: 0 15px 35px rgba(249, 248, 247, 0.4);
+            color: white;
+            text-align: center;
+        }
+        /* TITLE */
+        
+        .login-box h2 {
+            font-size: 50px;
+            margin-bottom: 35px;
+        }
+        
+        .login-box p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        /* INPUT BOX */
+        
+        .input-box {
+            margin: 10px 0;
+        }
+        
+        .input-box input {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            background: rgba(6, 176, 202, 0.2);
+            color: white;
+        }
+        
+        .input-box input::placeholder {
+            color: #ddd;
+        }
+        /* BUTTON */
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .login-btn:hover {
+            transform: scale(1.05);
+        }
+        /* GOOGLE BUTTON */
+        
+        .google-btn {
+            margin-top: 12px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .google-btn:hover {
+            background: rgba(255, 255, 255, 0.976);
+        }
+        /* LINKS */
+        
+        .links {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        
+        .links a {
+            color: #00c6ff;
+            text-decoration: none;
+        }
+        
+        .submit {
+            color: #00c6ff
+        }
+    </style>
+</head>
+
+<body>
+
+    <form class="login-box" onsubmit="login(event)">
+        <h2>Login</h2>
+
+        <div class="input-box">
+            <input type="email" id="email" placeholder="Enter Email" required>
+        </div>
+
+        <div class="input-box">
+            <input type="password" id="pass" placeholder="Enter Password" required>
+            <span class="toggle-btn" onclick="togglePass()">👁️</span>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("pass").value;
+
+            const users = [{
+                email: "christian@gmail.com",
+                password: "1234"
+            }, {
+                email: "alan@gmail.com",
+                password: "2211"
+            }, {
+                email: "cathy@gmail.com",
+                password: "22wa11"
+            }];
+
+            let valid = users.some(user =>
+                user.email === email && user.password === password
+            );
+
+            if (valid) {
+                window.location.href = "test2.html";
+            } else {
+                alert("Wrong email or password!");
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
